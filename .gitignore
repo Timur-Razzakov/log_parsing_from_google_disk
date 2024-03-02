@@ -1,0 +1,25 @@
+# byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# tests and coverage
+*.db
+*.log
+
+# venv
+env
+venv
+
+
+staticfiles/*
+!staticfiles/.gitkeep
+.vscode/symbols.json
+
+**/migrations/**
+!**/migrations/__init__.py
+
+.env
+test.py
+.idea/
+
+*.json
