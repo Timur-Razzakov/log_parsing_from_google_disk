@@ -75,11 +75,11 @@ WSGI_APPLICATION = 'LogParsing.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("PG_NAME", default="test_dev"),
-        "USER": config("PG_USER", default="test_dev"),
-        "PASSWORD": config("PG_PASS", default="test_dev"),
-        "HOST": config("PG_HOST", default="127.0.0.1"),
-        "PORT": config("PG_PORT", default="5432"),
+        "NAME": config("POSTGRES_DB", default="test_dev"),
+        "USER": config("POSTGRES_USER", default="test_dev"),
+        "PASSWORD": config("POSTGRES_PASSWORD", default="test_dev"),
+        "HOST": config("POSTGRES_HOST", default="127.0.0.1"),
+        "PORT": config("POSTGRES_PORT", default="5432"),
     },
     "OPTIONS": {
         "options": "-c statement_timeout=300000",
