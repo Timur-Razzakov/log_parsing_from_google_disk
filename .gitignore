@@ -17,7 +17,7 @@ staticfiles/*
 
 **/migrations/**
 !**/migrations/__init__.py
-
+.coverage
 .env
 test.py
 .idea/
