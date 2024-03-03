@@ -107,7 +107,9 @@ pip install -r requirements.txt
    |    |       |-- serialyzer.py
    |    |       |-- url.py
    |    |       |-- views.py
-   |    |       |-- tests.py
+   |-- tests
+   |    | --logs_info
+   |    |       | -- test_api.py
    |-- requirements.txt                     
    |-- docker-compose.yml
    |-- Dockerfile
