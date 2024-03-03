@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+
 from .log_info.urls import router as log_info_router
 
 router = DefaultRouter()

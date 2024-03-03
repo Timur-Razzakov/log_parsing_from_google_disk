@@ -1,17 +1,11 @@
 import os
-import sqlite3
-from unittest import mock
 
 import pytest
-from django.test import TestCase
-from unittest.mock import patch, mock_open
-import requests_mock
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework import status
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APIClient
 
-from LogParsing import settings
 from api.log_info.views import download_file, save_data, get_url_id
 from apps.log_info.models import Logs
 
@@ -57,6 +51,14 @@ def test_download_file_success(mocker):
     os.remove(local_filename)
 
 
+@pytest.mark.django_db
+def test_download_file_error(client):
+    url = "https://drive.google.com/uc?id=download"
+    response = client.post(reverse('send-url-list'), data={"log_link": url}, format='json')
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert "Возникли проблемы с вашей ссылкой" in response.data
+
+
 # Фикстура для создания тестового лога
 @pytest.fixture
 def test_log(use_test_database):
@@ -99,6 +101,20 @@ def test_save_data_with_valid_log(tmp_path):
     assert result['Количество строк с ошибками'] == 0
     assert result['Количество успешно сохранённых'] == 1
     assert Logs.objects.count() == 1
+
+
+@pytest.mark.django_db
+def test_save_data_with_invalid_log(tmp_path):
+    invalid_log_content = ' {"time": "invalid", "remote_ip": "93.180.71.3"}'
+    log_file_path = tmp_path / "nginx_logs.log"
+    log_file_path.write_text(invalid_log_content)
+
+    result = save_data(str(log_file_path))
+
+    assert result['Всего строчек с логами'] == 1
+    assert result['Количество строк с ошибками'] == 1
+    assert result['Количество успешно сохранённых'] == 0
+    assert Logs.objects.count() == 0
 
 
 @pytest.mark.django_db

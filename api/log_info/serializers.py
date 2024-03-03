@@ -1,5 +1,3 @@
-import datetime
-
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from rest_framework import serializers

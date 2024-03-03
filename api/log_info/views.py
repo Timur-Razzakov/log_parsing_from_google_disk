@@ -3,16 +3,13 @@ import mimetypes
 import os
 from datetime import datetime
 
-import gdown
 import requests
-from django.http import HttpResponse
-from django.utils.timezone import make_aware, get_default_timezone
+from django.utils.timezone import get_default_timezone
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter, inline_serializer
+from drf_spectacular.utils import extend_schema_view, extend_schema, inline_serializer
 from loguru import logger
-from rest_framework import status, generics, serializers, filters, viewsets
+from rest_framework import status, serializers, filters, viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from api.log_info.serializers import LogsSerializer, UrlSerializer
 from apps.log_info.models import Logs
